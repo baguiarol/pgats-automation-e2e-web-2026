@@ -1,0 +1,13 @@
+{
+  "name": "pgats-automacao-web-2026",
+  "version": "1.0.0",
+  "description": "Automação de Testes Web com Cypress - Trabalho Final PGATS",
+  "scripts": {
+    "test": "cypress run",
+    "cy:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^13.7.3",
+    "cypress-mochawesome-reporter": "^5.0.0"
+  }
+}
