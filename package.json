@@ -1,5 +1,5 @@
 {
-  "name": "pgats-web-automation-2026",
+  "name": "pgats-automation-e2e-web-2026",
   "version": "1.0.0",
   "description": "Web Test Automation with Cypress - PGATS Final Project",
   "scripts": {
