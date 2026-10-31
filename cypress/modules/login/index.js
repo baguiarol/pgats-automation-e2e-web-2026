@@ -1,56 +1,58 @@
-const seletores = {
-  menuLogin: 'a[href="/login"]',
-  email: '[data-qa="login-email"]',
-  senha: '[data-qa="login-password"]',
-  botaoLogin: '[data-qa="login-button"]',
-  mensagemErro: '.login-form form p',
+class LoginPage {
+  elements = {
+    loginMenu: () => cy.get('a[href="/login"]'),
+    email: () => cy.get('[data-qa="login-email"]'),
+    password: () => cy.get('[data-qa="login-password"]'),
+    loginButton: () => cy.get('[data-qa="login-button"]'),
+    errorMessage: () => cy.get('.login-form form p'),
 
-  usuarioLogado: 'a:contains("Logged in as")',
-  menuLogout: 'a[href="/logout"]',
-  menuExcluirConta: 'a[href="/delete_account"]',
+    loggedInUser: () => cy.get('a:contains("Logged in as")'),
+    logoutMenu: () => cy.get('a[href="/logout"]'),
+    deleteAccountMenu: () => cy.get('a[href="/delete_account"]'),
 
-  mensagemContaExcluida: '[data-qa="account-deleted"]',
-  botaoContinuar: '[data-qa="continue-button"]',
-};
+    accountDeletedMessage: () => cy.get('[data-qa="account-deleted"]'),
+    continueButton: () => cy.get('[data-qa="continue-button"]'),
+  };
 
-export const login = {
-  /** Abre a página de Login/Signup pelo menu superior. */
-  acessarPagina() {
-    cy.get(seletores.menuLogin).click();
-  },
+  /** Opens the Login/Signup page from the top menu. */
+  openPage() {
+    this.elements.loginMenu().click();
+  }
 
-  /** Preenche e envia o formulário de login. */
-  entrar(email, senha) {
-    cy.get(seletores.email).type(email);
-    cy.get(seletores.senha).type(senha, { log: false });
-    cy.get(seletores.botaoLogin).click();
-  },
+  /** Fills in and submits the login form. */
+  signIn(email, password) {
+    this.elements.email().type(email);
+    this.elements.password().type(password, { log: false });
+    this.elements.loginButton().click();
+  }
 
-  validarUsuarioLogado(nome) {
-    cy.get(seletores.usuarioLogado).should('be.visible').and('contain', nome);
-  },
+  assertUserLoggedIn(name) {
+    this.elements.loggedInUser().should('be.visible').and('contain', name);
+  }
 
-  validarErroLogin() {
-    cy.get(seletores.mensagemErro)
+  assertLoginError() {
+    this.elements.errorMessage()
       .should('be.visible')
       .and('contain', 'Your email or password is incorrect!');
-  },
+  }
 
-  sair() {
-    cy.get(seletores.menuLogout).click();
-  },
+  logout() {
+    this.elements.logoutMenu().click();
+  }
 
-  validarLogout() {
+  assertLoggedOut() {
     cy.url().should('include', '/login');
-    cy.get(seletores.menuLogout).should('not.exist');
-  },
+    this.elements.logoutMenu().should('not.exist');
+  }
 
-  /** Exclui a conta logada e confirma a mensagem "Account Deleted!". */
-  excluirConta() {
-    cy.get(seletores.menuExcluirConta).click();
-    cy.get(seletores.mensagemContaExcluida)
+  /** Deletes the logged-in account and confirms the "Account Deleted!" message. */
+  deleteAccount() {
+    this.elements.deleteAccountMenu().click();
+    this.elements.accountDeletedMessage()
       .should('be.visible')
       .and('contain.text', 'Account Deleted');
-    cy.get(seletores.botaoContinuar).click();
-  },
-};
+    this.elements.continueButton().click();
+  }
+}
+
+export const loginPage = new LoginPage();

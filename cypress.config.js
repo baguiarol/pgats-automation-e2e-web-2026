@@ -11,11 +11,11 @@ module.exports = defineConfig({
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     reportDir: 'cypress/reports',
-    reportPageTitle: 'Relatório de Testes - PGATS Automation Exercise',
+    reportPageTitle: 'Test Report - PGATS Automation Exercise',
     charts: true,
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
-    autoOpen: true, // Abre o relatório HTML ao término da execução
+    autoOpen: true, // Opens the HTML report when the run finishes
   },
 });

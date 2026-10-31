@@ -1,13 +1,13 @@
-# Dependências
+# Dependencies
 node_modules/
 
-# Artefatos do Cypress
+# Cypress artifacts
 cypress/videos/
 cypress/screenshots/
 cypress/downloads/
 cypress/reports/
 
-# Sistema / logs
+# System / logs
 *.log
 .DS_Store
 Thumbs.db

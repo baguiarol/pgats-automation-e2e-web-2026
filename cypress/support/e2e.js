@@ -1,4 +1,4 @@
 import 'cypress-mochawesome-reporter/register';
 
-// Ignora exceções de scripts de terceiros do site (anúncios, analytics)
+// Ignores exceptions from the site's third-party scripts (ads, analytics)
 Cypress.on('uncaught:exception', () => false);

@@ -1,34 +1,34 @@
 /**
- * Gera um usuário com e-mail único (timestamp) para evitar duplicidade no banco.
- * Qualquer campo pode ser sobrescrito via `overrides`.
+ * Builds a user with a unique email (timestamp) to avoid duplicates in the database.
+ * Any field can be overridden via `overrides`.
  */
-export function criarUsuario(apelido, overrides = {}) {
+export function createUser(nickname, overrides = {}) {
   return {
-    nomeExibicao: `Juliana ${apelido}`,
-    email: `aluna_${apelido.toLowerCase()}_${Date.now()}@teste.com`,
-    senha: 'SenhaSegura123',
-    dia: '10',
-    mes: 'May',
-    ano: '1995',
-    nome: 'Juliana',
-    sobrenome: apelido,
-    endereco: 'Rua das Automações, 100',
-    pais: 'United States',
-    estado: 'California',
-    cidade: 'Los Angeles',
-    zipcode: '90001',
-    celular: '11999999999',
+    displayName: `Alex ${nickname}`,
+    email: `qa_${nickname.toLowerCase()}_${Date.now()}@example.com`,
+    password: 'QaPassword456',
+    day: '22',
+    month: 'March',
+    year: '1992',
+    firstName: 'Alex',
+    lastName: nickname,
+    address: '250 Testing Avenue',
+    country: 'Canada',
+    state: 'Ontario',
+    city: 'Toronto',
+    zipcode: 'M5V 2T6',
+    mobileNumber: '14165550123',
     ...overrides,
   };
 }
 
-/** Dados fictícios de cartão aceitos pelo Automation Exercise. */
-export function criarCartao(nomeTitular) {
+/** Fictitious card details accepted by Automation Exercise. */
+export function createCard(cardholderName) {
   return {
-    nome: nomeTitular,
-    numero: '4111111111111111',
-    cvc: '311',
-    mes: '12',
-    ano: '2028',
+    name: cardholderName,
+    number: '5555555555554444',
+    cvc: '123',
+    month: '08',
+    year: '2030',
   };
 }

@@ -1,4 +1,4 @@
-name: Testes E2E Cypress - PGATS
+name: Cypress E2E Tests - PGATS
 
 on:
   push:
@@ -12,23 +12,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do repositório
+      - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Configurar Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Executar testes Cypress (headless)
+      - name: Run Cypress tests (headless)
         uses: cypress-io/github-action@v6
         with:
           browser: chrome
 
-      - name: Publicar relatório HTML
+      - name: Publish HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: relatorio-testes-html
+          name: test-report-html
           path: cypress/reports/
           retention-days: 30
