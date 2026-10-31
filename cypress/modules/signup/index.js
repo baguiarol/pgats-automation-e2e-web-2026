@@ -26,18 +26,16 @@ class SignupPage {
     continueButton: () => cy.get('[data-qa="continue-button"]'),
   };
 
-  /** Step 1: name + email and click on Signup. */
   start(name, email) {
     this.elements.name().type(name);
     this.elements.email().type(email);
     this.elements.signupButton().click();
   }
 
-  /** Step 2: full form with personal and address details. */
   fillForm(user) {
     this.elements.maleGender().check();
     this.elements.password().type(user.password, { log: false });
-    this.elements.day().select(user.day); // Options have no leading zero: '1' to '31'
+    this.elements.day().select(user.day);
     this.elements.month().select(user.month);
     this.elements.year().select(user.year);
     this.elements.firstName().type(user.firstName);
@@ -51,7 +49,6 @@ class SignupPage {
     this.elements.createAccountButton().click();
   }
 
-  /** Confirms "Account Created!" (the HTML uses mixed case; CSS renders it in uppercase). */
   assertAccountCreated() {
     this.elements.accountCreatedMessage()
       .should('be.visible')
@@ -65,7 +62,6 @@ class SignupPage {
       .and('contain', 'Email Address already exist!');
   }
 
-  /** Full account creation flow; ends with the user logged in. */
   createAccount(user) {
     loginPage.openPage();
     this.start(user.displayName, user.email);

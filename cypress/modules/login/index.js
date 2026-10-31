@@ -14,12 +14,10 @@ class LoginPage {
     continueButton: () => cy.get('[data-qa="continue-button"]'),
   };
 
-  /** Opens the Login/Signup page from the top menu. */
   openPage() {
     this.elements.loginMenu().click();
   }
 
-  /** Fills in and submits the login form. */
   signIn(email, password) {
     this.elements.email().type(email);
     this.elements.password().type(password, { log: false });
@@ -45,7 +43,6 @@ class LoginPage {
     this.elements.logoutMenu().should('not.exist');
   }
 
-  /** Deletes the logged-in account and confirms the "Account Deleted!" message. */
   deleteAccount() {
     this.elements.deleteAccountMenu().click();
     this.elements.accountDeletedMessage()

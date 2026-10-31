@@ -1,7 +1,3 @@
-/**
- * Builds a user with a unique email (timestamp) to avoid duplicates in the database.
- * Any field can be overridden via `overrides`.
- */
 export function createUser(nickname, overrides = {}) {
   return {
     displayName: `Alex ${nickname}`,
@@ -22,7 +18,6 @@ export function createUser(nickname, overrides = {}) {
   };
 }
 
-/** Fictitious card details accepted by Automation Exercise. */
 export function createCard(cardholderName) {
   return {
     name: cardholderName,

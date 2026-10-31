@@ -2,7 +2,7 @@ class FooterPage {
   elements = {
     footer: () => cy.get('#footer'),
     subscriptionTitle: () => cy.get('.single-widget h2'),
-    emailField: () => cy.get('#susbscribe_email'), // The "susbscribe" spelling is the site's own
+    emailField: () => cy.get('#susbscribe_email'),
     subscribeButton: () => cy.get('#subscribe'),
     successMessage: () => cy.get('#success-subscribe'),
   };

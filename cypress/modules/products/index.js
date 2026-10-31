@@ -27,7 +27,6 @@ class ProductsPage {
     this.elements.detailsLink().first().click();
   }
 
-  /** Name, category, price, availability, condition and brand. */
   assertDetails() {
     this.elements.detailsPanel().should('be.visible').within(() => {
       this.elements.productName().should('be.visible');

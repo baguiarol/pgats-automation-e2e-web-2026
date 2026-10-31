@@ -17,7 +17,6 @@ class CartPage {
     orderMessage: () => cy.get('[data-qa="order-placed"]'),
   };
 
-  /** Adds the first product on display and opens the cart from the modal. */
   addFirstProduct() {
     this.elements.addButton().first().click();
     this.elements.successModal().should('be.visible');
@@ -25,7 +24,6 @@ class CartPage {
     cy.url().should('include', '/view_cart');
   }
 
-  /** /view_cart → /checkout → /payment */
   goToPayment() {
     this.elements.checkoutButton().click();
     this.elements.placeOrderButton().click();
@@ -47,7 +45,6 @@ class CartPage {
       .and('contain.text', 'Order Placed');
   }
 
-  /** Full purchase flow starting from the products page. */
   completePurchase(card) {
     this.addFirstProduct();
     this.goToPayment();

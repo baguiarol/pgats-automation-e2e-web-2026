@@ -1,5 +1,3 @@
-/// <reference types="cypress" />
-
 import { signupPage } from '../modules/signup';
 import { loginPage } from '../modules/login';
 import { productsPage } from '../modules/products';
@@ -58,7 +56,6 @@ describe('PGATS Final Project - Automation Exercise E2E', () => {
       signupPage.start(user.displayName, user.email);
       signupPage.assertEmailAlreadyExists();
 
-      // Cleanup: logs in with the created account to delete it
       loginPage.signIn(user.email, user.password);
       loginPage.deleteAccount();
     });
