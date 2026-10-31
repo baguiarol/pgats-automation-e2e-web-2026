@@ -16,6 +16,6 @@ module.exports = defineConfig({
     embeddedScreenshots: true,
     inlineAssets: true,
     saveAllAttempts: false,
-    autoOpen: true, // Opens the HTML report when the run finishes
+    autoOpen: !process.env.CI, // Opens the HTML report locally; would hang on CI (no browser)
   },
 });
