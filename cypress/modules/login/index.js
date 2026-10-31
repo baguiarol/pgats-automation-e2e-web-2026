@@ -1,6 +1,8 @@
 class LoginPage {
   elements = {
     loginMenu: () => cy.get('a[href="/login"]'),
+    loginTitle: () => cy.get('.login-form h2'),
+    signupTitle: () => cy.get('.signup-form h2'),
     email: () => cy.get('[data-qa="login-email"]'),
     password: () => cy.get('[data-qa="login-password"]'),
     loginButton: () => cy.get('[data-qa="login-button"]'),
@@ -16,6 +18,13 @@ class LoginPage {
 
   openPage() {
     this.elements.loginMenu().click();
+    cy.url().should('include', '/login');
+    this.elements.loginTitle()
+      .should('be.visible')
+      .and('contain', 'Login to your account');
+    this.elements.signupTitle()
+      .should('be.visible')
+      .and('contain', 'New User Signup!');
   }
 
   signIn(email, password) {
@@ -41,6 +50,8 @@ class LoginPage {
   assertLoggedOut() {
     cy.url().should('include', '/login');
     this.elements.logoutMenu().should('not.exist');
+    this.elements.loggedInUser().should('not.exist');
+    this.elements.loginMenu().should('be.visible');
   }
 
   deleteAccount() {
@@ -49,6 +60,8 @@ class LoginPage {
       .should('be.visible')
       .and('contain.text', 'Account Deleted');
     this.elements.continueButton().click();
+    this.elements.loggedInUser().should('not.exist');
+    this.elements.loginMenu().should('be.visible');
   }
 }
 

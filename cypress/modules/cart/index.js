@@ -3,8 +3,11 @@ class CartPage {
     addButton: () => cy.get('.add-to-cart'),
     successModal: () => cy.get('#cartModal'),
     viewCartLink: () => cy.get('#cartModal a[href="/view_cart"]'),
+    cartRows: () => cy.get('#cart_info tbody tr'),
 
     checkoutButton: () => cy.get('.check_out'),
+    deliveryAddress: () => cy.get('#address_delivery'),
+    invoiceAddress: () => cy.get('#address_invoice'),
     placeOrderButton: () => cy.get('a[href="/payment"]'),
 
     cardName: () => cy.get('[data-qa="name-on-card"]'),
@@ -15,6 +18,7 @@ class CartPage {
     payButton: () => cy.get('[data-qa="pay-button"]'),
 
     orderMessage: () => cy.get('[data-qa="order-placed"]'),
+    orderConfirmation: () => cy.contains('p', 'Congratulations! Your order has been confirmed!'),
   };
 
   addFirstProduct() {
@@ -22,10 +26,23 @@ class CartPage {
     this.elements.successModal().should('be.visible');
     this.elements.viewCartLink().click();
     cy.url().should('include', '/view_cart');
+    this.elements.cartRows().should('have.length', 1);
   }
 
-  goToPayment() {
+  assertCheckoutDetails(user) {
+    cy.url().should('include', '/checkout');
+    [this.elements.deliveryAddress, this.elements.invoiceAddress].forEach((address) => {
+      address().should('be.visible').within(() => {
+        [user.firstName, user.lastName, user.address, user.city, user.country, user.mobileNumber]
+          .forEach((info) => cy.root().should('contain', info));
+      });
+    });
+    this.elements.cartRows().should('have.length.greaterThan', 0);
+  }
+
+  goToPayment(user) {
     this.elements.checkoutButton().click();
+    this.assertCheckoutDetails(user);
     this.elements.placeOrderButton().click();
     cy.url().should('include', '/payment');
   }
@@ -43,11 +60,13 @@ class CartPage {
     this.elements.orderMessage()
       .should('be.visible')
       .and('contain.text', 'Order Placed');
+    this.elements.orderConfirmation().should('be.visible');
+    cy.url().should('include', '/payment_done');
   }
 
-  completePurchase(card) {
+  completePurchase(user, card) {
     this.addFirstProduct();
-    this.goToPayment();
+    this.goToPayment(user);
     this.pay(card);
     this.assertOrderPlaced();
   }

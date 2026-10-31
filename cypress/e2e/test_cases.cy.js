@@ -94,7 +94,7 @@ describe('PGATS Final Project - Automation Exercise E2E', () => {
       loginPage.assertUserLoggedIn(user.displayName);
 
       productsPage.openPage();
-      cartPage.completePurchase(createCard(user.displayName));
+      cartPage.completePurchase(user, createCard(user.displayName));
 
       loginPage.deleteAccount();
     });
@@ -109,7 +109,7 @@ describe('PGATS Final Project - Automation Exercise E2E', () => {
       loginPage.assertUserLoggedIn(user.displayName);
 
       productsPage.openPage();
-      cartPage.completePurchase(createCard(user.displayName));
+      cartPage.completePurchase(user, createCard(user.displayName));
 
       loginPage.deleteAccount();
     });

@@ -7,6 +7,9 @@ class SignupPage {
     signupButton: () => cy.get('[data-qa="signup-button"]'),
     errorMessage: () => cy.get('.signup-form form p'),
 
+    formTitle: () => cy.get('.login-form h2').first(),
+    formName: () => cy.get('[data-qa="name"]'),
+    formEmail: () => cy.get('[data-qa="email"]'),
     maleGender: () => cy.get('#id_gender1'),
     password: () => cy.get('[data-qa="password"]'),
     day: () => cy.get('[data-qa="days"]'),
@@ -30,6 +33,14 @@ class SignupPage {
     this.elements.name().type(name);
     this.elements.email().type(email);
     this.elements.signupButton().click();
+  }
+
+  assertFormVisible(user) {
+    this.elements.formTitle()
+      .should('be.visible')
+      .and('contain.text', 'Enter Account Information');
+    this.elements.formName().should('have.value', user.displayName);
+    this.elements.formEmail().should('have.value', user.email);
   }
 
   fillForm(user) {
@@ -65,6 +76,7 @@ class SignupPage {
   createAccount(user) {
     loginPage.openPage();
     this.start(user.displayName, user.email);
+    this.assertFormVisible(user);
     this.fillForm(user);
     this.assertAccountCreated();
   }
